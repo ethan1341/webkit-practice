@@ -22,7 +22,7 @@ module.exports = {
 	},
 	
 	plugins : [
-		new ExtractTextPlugin("styles/styles.css")
+		new ExtractTextPlugin("styles/styles.scss")
 	],
 
 
@@ -54,7 +54,7 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: ['','.js','.es6']
+		extensions: ['','.js','.es6','scss','css']
 	}
 
 }
