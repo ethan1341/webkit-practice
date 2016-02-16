@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
 	context: path.resolve('./'), //sets relative root directory for entry key Where it will look for entry point
 	entry: {
@@ -12,7 +11,9 @@ module.exports = {
 	output: {
 		path: path.resolve('build/'), // where its putting build.js
 		publicPath: '/public/assets/',  // THIS IS WHERE YOU ACCESS BUILD FILES FROM YOUR INDEX.HTML
-		filename: "./js/[name].js"
+		filename: "./js/[name].js",
+		 
+		 
 	},
 
 	watch:true,
@@ -20,29 +21,26 @@ module.exports = {
 	devServer:{
 		contentBase:'public'
 	},
-	
-	plugins : [
-		new ExtractTextPlugin("styles/styles.scss")
-	],
 
 
 	module:{
 		loaders:[
 			{
-				test: /\.es6$/,
+				test: /\.(es6|js)$/,
 				exclude: /node_modules/,
 				loader: "babel"
 			},
 			{
 				test: /\.css$/,
 				exclude: /node_modules/,
-				loader: ExtractTextPlugin.extract("style-loader","css-loader")
+				loader: "style-loader!css-loader",
 			},
 			{
 				test: /\.scss$/,
 				exclude: /node_modules/,
-				loader: ExtractTextPlugin.extract("style-loader","css-loader!sass-loader")
-			}
+				loader: "style-loader!css-loader!sass-loader",
+			},
+	
 		],
 		preLoaders:[
 			{
@@ -50,11 +48,12 @@ module.exports = {
 				exclude:/node_modules/,
 				loader:"jshint-loader"
 			}
-		]	
+		],
+		resolve:{
+			extensions:['','.js','.es6']
+		}
 	},
 
-	resolve: {
-		extensions: ['','.js','.es6','scss','css']
-	}
+
 
 }
